@@ -8,20 +8,19 @@ class riskInfo(object):
 
 
 def getxlsUrl():
-    f=os.getwd()
+    f=os.getcwd()
     aurl="http://grch37.ensembl.org/Homo_sapiens/Variation/Population?db=core;r=8:19808830-19809830;v="
     openFileName=f+"\\pmid.xlsx"
     wb=load_workbook(openFileName)
     sheet1=wb.get_sheet_by_name('gene_snp')
     riskInfoList=[]
-    for r in range(1,sheet1.maxrow):
-        riskInfoNew = riskInfo()
+    for r in range(1,sheet1.max_row):
+
         rsid=sheet1['E'][r].value
         riskA=sheet1['U'][r].value
         if riskA:
-            riskInfoNew.rsid=rsid
-            riskInfoNew.riskA=riskA
-            riskInfoNew.rsidUrl=aurl.join(rsid)
+            riskInfoNew = riskInfo(rsid.strip(),aurl+rsid.strip(),riskA.strip())
+
             riskInfoList.append(riskInfoNew)
 
     return  riskInfoList
