@@ -27,7 +27,18 @@ class EnsemblspiderSpider(scrapy.Spider):
         #
         #     InfoTable=Info1.xpath('./')
         # pass
+        # Info1=response.xpath('//h2[contains(text(),"1000 Genomes Project Phase 3 allele frequencies")]').extract()[0]
+
+
         driver=webdriver.PhantomJS(executable_path='C:/Users/Wei/Downloads/phantomjs-2.1.1-windows/bin/phantomjs.exe')
-        driver.get(response.url)
-        htmls = driver.page_source
-        a=driver.page_source
+        driver.get(response.url+'#1000genomesprojectphase3_table')
+        htmls = driver.page_source.replace("\n","").replace("\r","")
+        alleles_ensembl=re.
+
+        pattern = re.compile(r'<span class="_ht ht"><b>AMR</b></span>(.*?)<span class="open">Hide</span>')
+        Info1=pattern.search(htmls)
+
+
+        if Info1:
+            print(Info1)
+        pass

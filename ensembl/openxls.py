@@ -1,10 +1,11 @@
 import os
 from openpyxl import load_workbook
 class riskInfo(object):
-    def __init__(self,rsid,rsidUrl,riskA):
+    def __init__(self,rsid,rsidUrl,riskA,r):
         self.rsid=rsid
         self.rsidUrl=rsidUrl
         self.riskA=riskA
+        self.row_num=r
 
 
 def getxlsUrl():
@@ -19,7 +20,7 @@ def getxlsUrl():
         rsid=sheet1['E'][r].value
         riskA=sheet1['U'][r].value
         if riskA:
-            riskInfoNew = riskInfo(rsid.strip(),aurl+rsid.strip(),riskA.strip())
+            riskInfoNew = riskInfo(rsid.strip(),aurl+rsid.strip(),riskA.strip(),r)
 
             riskInfoList.append(riskInfoNew)
 
