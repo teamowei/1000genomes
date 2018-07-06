@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96a39cc3-7c0d-4361-bce5-4943123b251f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ensembl/openxls.py" afterPath="$PROJECT_DIR$/ensembl/openxls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ensembl/spiders/ensemblspider.py" afterPath="$PROJECT_DIR$/ensembl/spiders/ensemblspider.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ghostdriver.log" afterPath="$PROJECT_DIR$/ghostdriver.log" />
     </list>
@@ -38,7 +38,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ensembl/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
+            <state relative-caret-position="968">
               <caret line="44" column="128" lean-forward="true" selection-start-line="44" selection-start-column="128" selection-end-line="44" selection-end-column="128" />
               <folding />
             </state>
@@ -58,8 +58,8 @@
       <file leaf-file-name="ensemblspider.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ensembl/spiders/ensemblspider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="34" column="68" lean-forward="true" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
+            <state relative-caret-position="378">
+              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="e#24#37#0" expanded="true" />
               </folding>
@@ -90,7 +90,7 @@
       <file leaf-file-name="openxls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ensembl/openxls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="484">
               <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -139,7 +139,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -255,7 +255,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="953" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="953" y="0" width="974" height="1047" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25678498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -306,13 +306,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ensembl/spiders/ensemblspider.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ensembl/spiders/ensemblspider.py</url>
           <line>41</line>
-          <option name="timeStamp" value="22" />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -322,7 +317,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="23" />
+      <option name="time" value="24" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -706,7 +701,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ensembl/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
+        <state relative-caret-position="968">
           <caret line="44" column="128" lean-forward="true" selection-start-line="44" selection-start-column="128" selection-end-line="44" selection-end-column="128" />
           <folding />
         </state>
@@ -722,7 +717,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ensembl/openxls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
+        <state relative-caret-position="484">
           <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -732,8 +727,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ensembl/spiders/ensemblspider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="34" column="68" lean-forward="true" selection-start-line="34" selection-start-column="68" selection-end-line="34" selection-end-column="68" />
+        <state relative-caret-position="378">
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding>
             <element signature="e#24#37#0" expanded="true" />
           </folding>

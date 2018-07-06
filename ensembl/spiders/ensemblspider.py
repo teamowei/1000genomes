@@ -33,12 +33,18 @@ class EnsemblspiderSpider(scrapy.Spider):
         driver=webdriver.PhantomJS(executable_path='C:/Users/Wei/Downloads/phantomjs-2.1.1-windows/bin/phantomjs.exe')
         driver.get(response.url+'#1000genomesprojectphase3_table')
         htmls = driver.page_source.replace("\n","").replace("\r","")
-        alleles_ensembl=re.
+        #alleles_ensembl=re.search()
 
-        pattern = re.compile(r'<span class="_ht ht"><b>AMR</b></span>(.*?)<span class="open">Hide</span>')
+        pattern = re.compile('<span class="_ht ht"><b>AMR</b></span>(.*?)<span class="open">Hide</span>')
         Info1=pattern.search(htmls)
 
 
         if Info1:
             print(Info1)
         pass
+
+
+
+    def findText(self,htmls,startText,endText):
+        pattern=re.compile(startText+"(.*?)"+endText)
+        return pattern.search(htmls)
