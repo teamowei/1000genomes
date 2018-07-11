@@ -10,7 +10,8 @@ class EnsemblspiderSpider(scrapy.Spider):
     name = 'ensemblspider'
     allowed_domains = ['http://grch37.ensembl.org/']
     # start_urls = ['http://http://grch37.ensembl.org//']
-    rsidInfos=op.getxlsUrl()
+    global rsidInfos
+    rsidInfos =op.getxlsUrl()
 
     start_urls=[]
     for x in rsidInfos:
@@ -29,6 +30,35 @@ class EnsemblspiderSpider(scrapy.Spider):
         # pass
         # Info1=response.xpath('//h2[contains(text(),"1000 Genomes Project Phase 3 allele frequencies")]').extract()[0]
 
+        Info2 = response.xpath('normalize-space(//span[@style="font-weight:bold;font-size:1.2em"])')
+        alleles = Info2.extract()[0].split('/')
+        rsid=response.xpath('normalize-space(//h1[@class="summary-heading"])').extract()[0].strip(" SNP")
+        r_allele1=self.find_risk_allele(rsid,rsidInfos)
+        r_allele2=self.allele_reverse(r_allele1)
+        n_alleles=[ ]
+        nn_genotype=[ ]
+        rn_genotype=[ ]
+        riskAllele =""
+
+
+        if r_allele1 in alleles:
+            riskAllele=r_allele1
+            alleles.remove(riskAllele)
+            n_alleles.extend(alleles)
+        elif r_allele2 in alleles:
+            riskAllele=r_allele2
+            alleles.remove(riskAllele)
+            n_alleles.extend(alleles)
+        else:
+            print("risk alleles not in web")
+
+        for n in n_alleles:
+            nn_genotype.append(n+"|"+n)
+            rn_genotype.append(n+"|"+riskAllele)
+            rn_genotype.append(riskAllele+"|"+n)
+
+
+
 
         driver=webdriver.PhantomJS(executable_path='C:/Users/Wei/Downloads/phantomjs-2.1.1-windows/bin/phantomjs.exe')
         driver.get(response.url+'#1000genomesprojectphase3_table')
@@ -36,7 +66,11 @@ class EnsemblspiderSpider(scrapy.Spider):
         #alleles_ensembl=re.search()
 
         pattern = re.compile('<span class="_ht ht"><b>AMR</b></span>(.*?)<span class="open">Hide</span>')
-        Info1=pattern.search(htmls)
+        Info1=pattern.search(htmls).group(1)
+        riskf= self.findText(Info1,riskAllele+"|"+riskAllele,"</div>").replace("</b>","")
+
+
+
 
 
         if Info1:
@@ -48,3 +82,23 @@ class EnsemblspiderSpider(scrapy.Spider):
     def findText(self,htmls,startText,endText):
         pattern=re.compile(startText+"(.*?)"+endText)
         return pattern.search(htmls)
+
+    def allele_reverse(self,allele):
+        if allele=="C":
+            allele="G"
+        elif allele=="G":
+            allele="C"
+        elif allele=="A":
+            allele="T"
+        elif allele=="T":
+            allele="A"
+
+        return allele
+
+    def find_risk_allele(self,rsid,rsidInfos):
+        for x in rsidInfos:
+            try:
+                if x.rsid==rsid:
+                    return x.riskA
+            except:
+                print(rsid+"not find")
