@@ -67,7 +67,7 @@ class EnsemblspiderSpider(scrapy.Spider):
 
         pattern = re.compile('<span class="_ht ht"><b>AMR</b></span>(.*?)<span class="open">Hide</span>')
         Info1=pattern.search(htmls).group(1)
-        riskf= self.findText(Info1,riskAllele+"|"+riskAllele,"</div>").replace("</b>","")
+        riskf= self.findText(Info1,riskAllele+"\|"+riskAllele,"</div>").group(1).replace("</b>:","").strip()
 
 
 
