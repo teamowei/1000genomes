@@ -3,7 +3,7 @@ import scrapy
 import re
 import ensembl.openxls as op
 from selenium import webdriver
-from ensembl.items  import EnsemblItem
+from ensembl.items  import EnsemblItem,RaceItem
 
 
 class EnsemblspiderSpider(scrapy.Spider):
@@ -15,8 +15,9 @@ class EnsemblspiderSpider(scrapy.Spider):
 
     start_urls=[]
     for x in rsidInfos:
-        start_url=x.rsidUrl
-        start_urls.append(start_url)
+        if x:
+            start_url=x.rsidUrl
+            start_urls.append(start_url)
 
     def parse(self, response):
         # wholepages=response.xpath('//html').extract()[0]
@@ -53,9 +54,9 @@ class EnsemblspiderSpider(scrapy.Spider):
             print("risk alleles not in web")
 
         for n in n_alleles:
-            nn_genotype.append(n+"|"+n)
-            rn_genotype.append(n+"|"+riskAllele)
-            rn_genotype.append(riskAllele+"|"+n)
+            nn_genotype.append(n+"\|"+n)
+            rn_genotype.append(n+"\|"+riskAllele)
+            rn_genotype.append(riskAllele+"\|"+n)
 
 
 
@@ -63,19 +64,53 @@ class EnsemblspiderSpider(scrapy.Spider):
         driver=webdriver.PhantomJS(executable_path='C:/Users/Wei/Downloads/phantomjs-2.1.1-windows/bin/phantomjs.exe')
         driver.get(response.url+'#1000genomesprojectphase3_table')
         htmls = driver.page_source.replace("\n","").replace("\r","")
-        #alleles_ensembl=re.search()
+        endText_freq="\\(.*?\\) </div>"
+        races_name=['EAS','CDX','CHB','CHS']
+        #race_freqs=[]
+        race_freq_dic={}
+        for r in races_name:
 
-        pattern = re.compile('<span class="_ht ht"><b>AMR</b></span>(.*?)<span class="open">Hide</span>')
-        Info1=pattern.search(htmls).group(1)
-        riskf= self.findText(Info1,riskAllele+"\|"+riskAllele,"</div>").group(1).replace("</b>:","").strip()
+            r_pattern='<span class="_ht ht"><b>'+r+'</b></span>(.*?)<span class="open">Hide</span>'
+
+            startText_genotype = "</b>:"
+            startText_allele = "</span></b>:"
+            pattern = re.compile(r_pattern)
+            Info1=pattern.search(htmls).group(1)
+            riskf= self.findText(Info1,riskAllele+"\|"+riskAllele+"</b>:",endText_freq).group(1).strip()
+            rn_fre=self.max_allele_frequence(Info1,rn_genotype,startText_genotype,endText_freq)
+            nn_fre = self.max_allele_frequence(Info1, nn_genotype,startText_genotype,endText_freq)
+            r_fre=self.findText(Info1,riskAllele+"</span></b>:",endText_freq).group(1).strip()
+            n_fre=self.max_allele_frequence(Info1,n_alleles,startText_allele,endText_freq)
+            race_freq = RaceItem(rsid,r_allele1,r_fre,n_fre,riskf,nn_fre,rn_fre)
+            #race_freqs.append(race_freq)
+            race_freq_dic[r]=race_freq
+
+        item=EnsemblItem()
+        item['rsid']=rsid
+        item['risk_allele']=riskAllele
+
+        item['r_cdx']=race_freq_dic['CDX'].rf
+        item['rr_cdx']=race_freq_dic['CDX'].rrf
+        item['nn_cdx']=race_freq_dic['CDX'].nnf
+        item['rn_cdx']=race_freq_dic['CDX'].rnf
+        item['r_chb']=race_freq_dic['CHB'].rf
+        item['rr_chb']=race_freq_dic['CHB'].rrf
+        item['nn_chb']=race_freq_dic['CHB'].nnf
+        item['rn_chb']=race_freq_dic['CHB'].rnf
+        item['r_chs'] =race_freq_dic['CHS'].rf
+        item['rr_chs'] =race_freq_dic['CHS'].rrf
+        item['nn_chs'] =race_freq_dic['CHS'].nnf
+        item['rn_chs'] =race_freq_dic['CHS'].rnf
+        item['r_eas'] =race_freq_dic['EAS'].rf
+        item['rr_eas'] =race_freq_dic['EAS'].rrf
+        item['nn_eas'] =race_freq_dic['EAS'].nnf
+        item['rn_eas'] =race_freq_dic['EAS'].rnf
 
 
-
-
-
-        if Info1:
-            print(Info1)
-        pass
+        # if Info1:
+        #     print(Info1)
+        # pass
+        yield item
 
 
 
@@ -102,3 +137,16 @@ class EnsemblspiderSpider(scrapy.Spider):
                     return x.riskA
             except:
                 print(rsid+"not find")
+
+    def max_allele_frequence(self,html,genotypeList,startText_type,endText):
+        allele_frequences=[]
+        for g in genotypeList:
+            startText=g+startText_type
+            frequence=self.findText(html,startText,endText)
+            if frequence:
+                allele_frequences.append(float(frequence.group(1).strip()))
+
+        return max(allele_frequences)
+
+
+

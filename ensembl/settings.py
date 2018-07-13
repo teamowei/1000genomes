@@ -13,6 +13,8 @@ BOT_NAME = 'ensembl'
 
 SPIDER_MODULES = ['ensembl.spiders']
 NEWSPIDER_MODULE = 'ensembl.spiders'
+ITEM_PIPELINES = {'ensembl.pipelines.EnsemblPipeline':100}
+HTTPERROR_ALLOWED_CODES = [404]
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
