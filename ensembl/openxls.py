@@ -17,8 +17,8 @@ def getxlsUrl():
     riskInfoList=[]
     for r in range(1,sheet1.max_row):
 
-        rsid=sheet1['E'][r].value
-        riskA=sheet1['U'][r].value
+        rsid=sheet1['A'][r].value
+        riskA=sheet1['B'][r].value
         if rsid:
             if riskA:
                 riskInfoNew = riskInfo(rsid.strip(),aurl+rsid.strip(),riskA.strip(),r)
